@@ -1,0 +1,30 @@
+# Maintained by very-amused <very-amused@pm.me>
+
+pkgname='keepassxc'
+pkgver='2.6.1'
+pkgrel='1'
+pkgdesc="very-amused's custom build of KeepassXC."
+arch=('x86_64')
+url='https://keepassxc.org'
+license=('GPL2')
+
+depends=('qt5-base' 'qt5-x11extras' 'qt5-svg' 'libxi' 'libxtst' 'qrencode' 'libsodium' 'libgcrypt' 'argon2' 'zlib')
+makedepends=('cmake' 'qt5-tools' 'asciidoctor')
+
+source=("https://github.com/keepassxreboot/keepassxc/releases/download/${pkgver}/keepassxc-${pkgver}-src.tar.xz")
+sha256sums=('b466759947fcd71a59b8d498a1f154cb7b85b4f2a0a417c92a75845d8bac8cc8')
+
+prepare() {
+	cd "${srcdir}/keepassxc-${pkgver}"
+	cmake -DWITH_XC_AUTOTYPE=ON -DWITH_XC_YUBIKEY=OFF -DWITH_XC_NETWORKING=ON -DWITH_XC_BROWSER=ON -DWITH_XC_SSHAGENT=OFF -DWITH_XC_KEESHARE=OFF -DWITH_XC_UPDATECHECK=OFF
+}
+
+build() {
+	cd "${srcdir}/keepassxc-${pkgver}"
+	make
+}
+
+package() {
+	cd "${srcdir}/keepassxc-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+}
