@@ -1,7 +1,7 @@
 # Builds a statically linked mpv package, including libx264, libx265, and NVENC functionality
 # Maintained by very-amused <very-amused@pm.me>
 
-pkgname='mpv-git'
+pkgname='mpv-static-git'
 pkgver=bb711c2
 pkgrel=1
 pkgdesc="The best media player, statically linked."
@@ -10,6 +10,8 @@ url='https://mpv.io'
 license=('GPL2')
 
 makedepends=('yasm' 'git' 'autoconf' 'pulseaudio' 'libjpeg' 'x264' 'x265' 'ffnvcodec-headers')
+provides=('mpv')
+conflicts=('mpv')
 
 source=('git+https://github.com/mpv-player/mpv-build.git')
 sha256sums=('SKIP')
